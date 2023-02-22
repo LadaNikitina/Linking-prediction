@@ -1,1 +1,1 @@
-# Linking-prediction
+# Linking prediction
