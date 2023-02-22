@@ -8,7 +8,7 @@ def collate(samples):
     batched_graph = dgl.batch(graphs)
     return batched_graph, torch.tensor(labels)
 
-def get_data_dgl_no_cycles(x, y, train_or_test, top_k, batch_size):
+def get_data_dgl_no_cycles(x, y, shuffle, top_k, batch_size):
     data = []
     y = torch.tensor(y)
 
@@ -23,7 +23,7 @@ def get_data_dgl_no_cycles(x, y, train_or_test, top_k, batch_size):
         g = dgl.add_self_loop(g)
         data.append((g, y[i]))
     
-    if train_or_test == 1:
+    if shuffle == 1:
         data = DataLoader(data, batch_size=batch_size, shuffle=True, drop_last=False,
                          collate_fn=collate)
     else:
