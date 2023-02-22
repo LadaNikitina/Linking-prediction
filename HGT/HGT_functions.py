@@ -15,7 +15,7 @@ from tqdm import tqdm
 
 from dgl import AddSelfLoop
 
-def get_data_dgl(x, y, batch_size, top_k, embs, uttr_embs, num_clusters, train_or_test):
+def get_data_dgl(x, y, batch_size, top_k, embs, uttr_embs, num_clusters, shuffle):
     null_cluster = 2 * num_clusters
     embs_dim = len(embs[0])
     uttr_embs_dim = len(uttr_embs[0][0])
@@ -33,7 +33,7 @@ def get_data_dgl(x, y, batch_size, top_k, embs, uttr_embs, num_clusters, train_o
     data_len = len(x)
     indexes = np.arange(data_len)
 
-    if train_or_test == 1:
+    if shuffle == 1:
         np.random.shuffle(indexes)
         
     x_ = np.concatenate((x[indexes], 
